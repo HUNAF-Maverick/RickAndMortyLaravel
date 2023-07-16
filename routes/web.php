@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Episodes\EpisodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::prefix('episodes')->group(function () {
+    Route::get('/', [EpisodeController::class, 'index'])->name('indexEpisodes');
+    Route::get('/sync', [EpisodeController::class, 'syncEpisodes'])->name('syncEpisodes');
+    Route::post('/get_characters', [EpisodeController::class, 'getCharacters'])->name('getCharacters');
 });
